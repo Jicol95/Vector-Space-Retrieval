@@ -1,13 +1,10 @@
-import math
-
-
 class document(object):
 
     def __init__(self, name, text):
         self.name = name
         self.text = text
         self.term_frequency = {}
-        self.inverse_document_frequency = {}
+        self.tf_idf = {}
         self.tokens = None
 
     def tokenize(self):
