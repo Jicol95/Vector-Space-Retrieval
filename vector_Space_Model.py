@@ -11,11 +11,6 @@ class vector_space_model(object):
         self.N_documents = len(os.listdir("documents/"))
         self.documents = []
         self.inverse_document_frequency = {}
-        vector_space_model.create_documents(self)
-        vector_space_model.tokenize_collection(self)
-        vector_space_model.term_frequency_collection(self)
-        vector_space_model.inverse_document_frequency(self)
-        vector_space_model.document_tf_idf(self)
 
     def create_documents(self):
         document_collection = self.document_collection
@@ -57,3 +52,25 @@ class vector_space_model(object):
         for doc in documents:
             for word in doc.tokens:
                 doc.tf_idf[word] = doc.term_frequency[word] * inverse_document_frequency[word]
+
+    def document_length(self):
+        documents = self.documents
+        for doc in documents:
+            tokens = doc.tokens
+            values = []
+            for token in tokens:
+                values.append(doc.tf_idf[token])
+            for value in values:
+                value ** 2
+            doc.length = math.sqrt(sum(values))
+
+    def build_documents(self):
+        vector_space_model.create_documents(self)
+        vector_space_model.tokenize_collection(self)
+        vector_space_model.term_frequency_collection(self)
+        vector_space_model.inverse_document_frequency(self)
+        vector_space_model.document_tf_idf(self)
+
+    def cosine_similarity(self):
+        documents = self.documents[:1]
+        query = self.documents[0]

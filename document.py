@@ -6,6 +6,7 @@ class document(object):
         self.term_frequency = {}
         self.tf_idf = {}
         self.tokens = None
+        self.length = None
 
     def tokenize(self):
         tokens = self.text
