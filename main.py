@@ -12,7 +12,11 @@ if __name__ == '__main__':
             vector_space_model.build_documents()
             vector_space_model.document_length()
             vector_space_model.cosine_similarity()
-            print(vector_space_model.document_return.text)
+            try:
+                print(vector_space_model.document_return.text)
+            except AttributeError:
+                print("No match!")
+
         elif option == 2:
             break
         else:
