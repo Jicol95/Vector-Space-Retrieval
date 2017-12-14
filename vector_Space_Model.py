@@ -11,6 +11,7 @@ class vector_space_model(object):
         self.N_documents = len(os.listdir("documents/"))
         self.documents = []
         self.inverse_document_frequency = {}
+        self.document_return = None
 
     def create_documents(self):
         document_collection = self.document_collection
@@ -72,5 +73,19 @@ class vector_space_model(object):
         vector_space_model.document_tf_idf(self)
 
     def cosine_similarity(self):
-        documents = self.documents[:1]
-        query = self.documents[0]
+        documents = self.documents
+        query = documents[0]
+        document_best_similarity = 0
+        for doc in documents[1:]:
+            vaules = []
+            for token in doc.tokens:
+                doc_tf_idf = doc.tf_idf.get(token, 0)
+                query_tf_idf = query.tf_idf.get(token, 0)
+                vaules.append(doc_tf_idf * query_tf_idf)
+            numerator = sum(vaules)
+            denomenator = query.length + doc.length
+            similarity = numerator / denomenator
+            if similarity > document_best_similarity:
+                document_best_similarity = similarity
+                self.document_return = doc
+        self.documents = documents[1:]
