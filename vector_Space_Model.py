@@ -4,7 +4,51 @@ from document import document
 
 
 class vector_space_model(object):
-    """Model of a document expressed as a vector"""
+    """Class capable of dealing with multiple documents and can return the
+    document most relevent to the search query
+
+    __INIT__ VARS
+    self.document_collection: A list of documents in the documents directory
+
+    self.N_documents: The number of documents in the directort documents this is
+    usefull for inverse documents frequency calulations.
+
+    self.documents: A list of document objects, one to one relationship with
+    document collection.
+
+    self.inverse_document_frequency: A dictionary of words and their
+    inverse_document_frequency
+
+    self.document_return: The document object with the highest cosine similarity
+    to the query document
+
+    OBJECT FUNCTIONS
+
+    create_documents(): Creates document objects in batch and appends them to
+    documents array.
+
+    tokenize_collection(): Tokenizes the text of each document in documents
+    array.
+
+    term_frequency_collection(): Calculates the term frequency of each token in the
+    document. It makes use of a method in the document class. The point of this
+    class is to call this method on all documents in one go.
+
+    inverse_document_frequency(): Calculates the inverse_document_frequency for
+    each word in all documents and puts the value in a dictionary where the key
+    is the word and the value is the inverse document frequency.
+
+    document_tf_idf(): Calculates the tf_idf of each word in each document.
+
+    document_length(): Calculates the length of the document in it's vector
+    representation.
+
+    build_documents(): Invokes methods from this class that Calculates
+    everything needed to represent documents as vectors.
+
+    cosine_similarity(): Calculates the cosine similarity for each document with
+    the query 'document'. It returns the document with the greatest cosine
+    """
 
     def __init__(self):
         self.document_collection = os.listdir("documents/")
