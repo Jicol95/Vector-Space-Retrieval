@@ -1,3 +1,6 @@
+import re
+
+
 class document(object):
     """
     Class that represents a document which is compatibile with vector space
@@ -17,12 +20,12 @@ class document(object):
     tokenize(): Tokenizes self.text and passes the vaule to self.tokens
 
     calculate_term_frequency(): Counts the frequency of each unique word in the
-    document.  
+    document.
     """
 
     def __init__(self, name, text):
         self.name = name
-        self.text = text
+        self.text = re.sub(r'[^\w\s]', '', text)
         self.term_frequency = {}
         self.tf_idf = {}
         self.tokens = None
